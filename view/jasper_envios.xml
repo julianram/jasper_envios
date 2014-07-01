@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        ##############################################################################
+        #
+        #    jasper_envios module for OpenERP, 
+        #    Copyright (C) 2010 INFINITYLOOP SISTEMAS ([http://www.infinitloop.es/]) 
+        #                  
+        #
+        #    This file is a part of jasper_envios
+        #
+        #    jasper_envios is free software: you can redistribute it and/or modify
+        #    it under the terms of the GNU General Public License as published by
+        #    the Free Software Foundation, either version 3 of the License, or
+        #    (at your option) any later version.
+        #
+        #    jasper_server is distributed in the hope that it will be useful,
+        #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+        #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        #    GNU General Public License for more details.
+        #
+        #    You should have received a copy of the GNU General Public License
+        #    along with this program.  If not, see [http://www.gnu.org/licenses/].
+        #
+        ##############################################################################
+
+
+      
+
+        ##
+        # Parametrizar envios
+        #
+        <record id="view_paraenvios_tree" model="ir.ui.view">
+            <field name="name">Jasper Envios [tree]</field>
+            <field name="model">jasper.envios</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Jasper Parametros Envios" colors="#f66a00:enabled==False" >
+                    <field name="enabled"/>
+                    <field name="name"/>
+                    <field name="jasper_id"/>
+                    <field name="model_id"/>
+                    <field name="frecuencia"/>
+                    <field name="formato"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_paraenvios_form" model="ir.ui.view">
+            <field name="name">Jasper Envios</field>
+            <field name="model">jasper.envios</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Jasper Envios">
+                    <field name="name" select="1"/>
+                    <field name="enabled" select="2"/>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <field name="jasper_id" />
+                            <field name="model_id" string="Modelos"/>
+                            <field name="query" />
+                            <field name="campo" />
+                            <field name="frecuencia"/>
+                            <field name="formato"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_paraenvios_search" model="ir.ui.view">
+            <field name="name">jasper.envios.search</field>
+            <field name="model">jasper.envios</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Envios">
+                   <filter string="Enabled" icon="terp-accessories-archiver" domain="[('enabled','=',1)]"/>
+                   <separator orientation="vertical"/>
+                   <field name="model_id"/>
+                   <field name="jasper_id"/>
+                   <newline/>
+                   <group  expand="0" string="Group by..." >
+                       <filter string='Model' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'model_id'}" />
+                       <separator orientation="vertical"/>
+                       <filter string='Informe' icon="terp-mrp" domain="[]" context="{'group_by' : 'jasper_id'}" />
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_paraenvios_view">
+            <field name="name">Jasper Envios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jasper.envios</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="open_paraenvios_form">
+            <field name="act_window_id" ref="act_open_paraenvios_view"/>
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_paraenvios_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="open_document_tree">
+            <field name="act_window_id" ref="act_open_paraenvios_view"/>
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_paraenvios_tree"/>
+        </record>
+
+        <menuitem id="menu_jasper_paraenvios" 
+            parent="jasper_server.menu_jasper"
+            sequence="20"
+            action="act_open_paraenvios_view"/>
+    </data>
+</openerp>
