@@ -6,9 +6,15 @@ Se seleccionan los partners que deseamos que reciban la información , ademas de
 
 Hay que añadir el siguiente comando en el programador del cron.
 
-host --> Ip del serviror Jasper
-dbname --> base de datos openerp
+## <u>Configuración</u>
 
+	Dependencias externas.
+
+	pip install pyjasperclient
+
+`host --> Ip del serviror Jasper
+dbname --> base de datos openerp
+`
 
     0 22 * * 1,2,3,4,5 python /opt/openerp/infinityloop/jasper_envios/enviarreportes.py -d dbname -u host -f day
     0 22 * * 5 python /opt/openerp/infinityloop/jasper_envios/enviarreportes.py -d dbname -u host -f week
