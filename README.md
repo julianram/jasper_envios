@@ -1,8 +1,8 @@
 # Jasper Envios 6.1
 
-Este modulo nos permite programar envíos periódicos via email, en los formatos que deseemos, de los reportes que tengamos alojados en JasperServer, es perfectamente configurable desde OpenErp.
+Este modulo nos permite programar envíos periódicos de los reportes que tengamos alojados en un servidor jasper via email, en los formatos que deseemos.
 
-Se seleccionan los partners que deseamos que reciban la información , ademas de días de semana y horas.
+Se parametriza el where **[('id','=',128)]** señalando los id de los partners a los cuales deseamos enviar el email así como los  días de semana y horas para su envío.
 
 Hay que añadir el siguiente comando en el programador del cron.
 
@@ -12,9 +12,12 @@ Hay que añadir el siguiente comando en el programador del cron.
 
 	pip install pyjasperclient
 
-`host --> Ip del serviror Jasper
+Hay que añadir el siguiente comando en el programador del cron.
+
+host --> Ip del serviror Jasper
 dbname --> base de datos openerp
-`
+
+` crontab -e`
 
     0 22 * * 1,2,3,4,5 python /opt/openerp/infinityloop/jasper_envios/enviarreportes.py -d dbname -u host -f day
     0 22 * * 5 python /opt/openerp/infinityloop/jasper_envios/enviarreportes.py -d dbname -u host -f week
